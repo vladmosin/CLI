@@ -1,5 +1,6 @@
 package com.hse.cli.functions;
 
+import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
 import com.hse.cli.exceptions.VariableNotInScopeException;
 import com.hse.cli.interpretator.Value;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +16,7 @@ public abstract class BashFunction {
     private BashFunction previous;
     private static final String PREVIOUS = "previous";
 
-    public Value apply() throws VariableNotInScopeException, IOException {
+    public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
         throw new IllegalStateException("Cannot apply abstract bash function");
     }
 
@@ -23,7 +24,7 @@ public abstract class BashFunction {
         parameters.add(value);
     }
 
-    public List<Value> getValues() throws VariableNotInScopeException, IOException {
+    public List<Value> getValues() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
         var values = new ArrayList<Value>();
         for (var parameter : parameters) {
             Value value = parameter.apply();
@@ -33,11 +34,15 @@ public abstract class BashFunction {
         return values;
     }
 
-    protected Value getPreviousResult() throws IOException, VariableNotInScopeException {
+    protected Value getPreviousResult() throws IOException, VariableNotInScopeException, ExternalFunctionRuntimeException {
         if (previous == null) {
             throw new VariableNotInScopeException("No previous function", null);
         }
         return previous.apply();
+    }
+
+    protected boolean hasPreviousResult() {
+        return previous != null;
     }
 
     public void addPrevious(@NotNull BashFunction value) {

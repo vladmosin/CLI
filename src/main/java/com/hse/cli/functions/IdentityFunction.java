@@ -1,9 +1,12 @@
 package com.hse.cli.functions;
 
+import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
 import com.hse.cli.exceptions.VariableNotInScopeException;
 import com.hse.cli.interpretator.StringValue;
 import com.hse.cli.interpretator.Value;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 
 import static com.hse.cli.Constants.DEFAULT;
 
@@ -15,7 +18,11 @@ public class IdentityFunction extends BashFunction {
     }
 
     @Override
-    public Value apply() {
+    public Value apply() throws VariableNotInScopeException, ExternalFunctionRuntimeException, IOException {
+        if (hasPreviousResult()) {
+            getPreviousResult();
+        }
+
         return value;
     }
 

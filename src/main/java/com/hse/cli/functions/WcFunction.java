@@ -1,5 +1,6 @@
 package com.hse.cli.functions;
 
+import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
 import com.hse.cli.exceptions.VariableNotInScopeException;
 import com.hse.cli.interpretator.StringValue;
 import com.hse.cli.interpretator.Value;
@@ -9,10 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.hse.cli.Constants.FILENAME;
 import static com.hse.cli.Utils.readFile;
 
 public class WcFunction extends BashFunction {
+    private enum WITH_FILENAME {YES, NO}
+
+
     private class WcDataHolder {
         private int symbols;
         private int words;
@@ -38,9 +41,9 @@ public class WcFunction extends BashFunction {
             return lines;
         }
 
-        private String toString(boolean withFilename) {
+        private String toString(WITH_FILENAME withFilename) {
             String dataInString = lines + " " + words + " " + symbols;
-            if (withFilename) {
+            if (withFilename == WITH_FILENAME.YES) {
                 return dataInString + " " + fileName;
             } else {
                 return dataInString;
@@ -54,10 +57,8 @@ public class WcFunction extends BashFunction {
     }
 
     @Override
-    public Value apply() throws VariableNotInScopeException, IOException {
-        Value previousResult = getPreviousResult();
-
-        if (previousResult.isEmpty()) {
+    public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
+        if (!hasPreviousResult()) {
             var fileInfos = new ArrayList<WcDataHolder>();
             for (var paths : getValues()) {
                 for (var path : paths.storedValue()) {
@@ -67,12 +68,14 @@ public class WcFunction extends BashFunction {
             return new StringValue(convertAnswerToString(fileInfos));
 
         } else {
+            Value previousResult = getPreviousResult();
+
             var input = previousResult.storedValue();
             int lines = countLines(input);
             int words = countWords(input);
             int symbols = countSymbols(input);
 
-            String result = (new WcDataHolder(symbols, words, lines, " ")).toString(false);
+            String result = (new WcDataHolder(symbols, words, lines, " ")).toString(WITH_FILENAME.NO);
             return new StringValue(List.of(result));
         }
     }
@@ -83,7 +86,7 @@ public class WcFunction extends BashFunction {
         } else {
             var stringResult = new ArrayList<String>();
             for (var fileInfo : fileInfos) {
-                stringResult.add(fileInfo.toString(fileInfos.size() != 1));
+                stringResult.add(fileInfo.toString(WITH_FILENAME.YES));
             }
 
             if (fileInfos.size() != 1) {
@@ -105,7 +108,7 @@ public class WcFunction extends BashFunction {
             totalSymbols += fileInfo.getSymbols();
         }
 
-        return new WcDataHolder(totalSymbols, totalWords, totalLines, "total").toString(true);
+        return new WcDataHolder(totalSymbols, totalWords, totalLines, "total").toString(WITH_FILENAME.YES);
     }
 
     private WcDataHolder getFileInfo(@NotNull String path) throws IOException {
