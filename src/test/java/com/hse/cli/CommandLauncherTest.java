@@ -209,7 +209,7 @@ class CommandLauncherTest {
 
     @Test
     void externalFunctionWithPipe() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
-        launcher.launch("dir | wc");
+        launcher.launch("ls | wc");
     }
 
     @Test

@@ -36,12 +36,12 @@ public class ExternalFunction extends BashFunction {
     }
 
     private String concatCommand() {
-        var builder = new StringBuilder("cmd.exe /c");
+        var builder = new StringBuilder();
         for (var parameter : parameters) {
             builder.append(' ');
             builder.append(parameter);
         }
 
-        return builder.toString();
+        return builder.toString().substring(1);
     }
 }
