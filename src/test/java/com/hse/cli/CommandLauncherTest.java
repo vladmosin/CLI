@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /* Testing scenarios
-* 1. All functions alone
+* 1. All functions alone 
 * 2. Single and double quotas
 * 3. Variables, both functions and strings
 * 4. Variables with quotas
