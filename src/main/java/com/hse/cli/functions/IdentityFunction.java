@@ -8,8 +8,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-import static com.hse.cli.Constants.DEFAULT;
 
+/**
+ * Stores value and returns it independently from its parameters values
+ * */
 public class IdentityFunction extends BashFunction {
     @NotNull private StringValue value;
 

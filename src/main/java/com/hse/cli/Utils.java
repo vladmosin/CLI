@@ -8,7 +8,12 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class Utils {
+
+    /**
+     * Read file into list of strings
+     * */
     public static List<String> readFile(@NotNull String path) throws IOException {
         return Files.lines(Paths.get(path)).collect(Collectors.toList());
     }

@@ -7,15 +7,26 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+
+/**
+ * Base class for all executable functions in shell
+ * */
 public abstract class BashFunction {
+    /**
+     * Parameters for bash function
+     * */
     private List<BashFunction> parameters = new ArrayList<>();
-    private BashFunction previous;
-    private static final String PREVIOUS = "previous";
 
+    /**
+     * Previous function in pipe
+     * */
+    private BashFunction previous;
+
+    /**
+     * Runs function with given parameters
+     * */
     public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
         throw new IllegalStateException("Cannot apply abstract bash function");
     }

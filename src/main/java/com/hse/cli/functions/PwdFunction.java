@@ -10,6 +10,9 @@ import java.util.List;
 
 import static com.hse.cli.Constants.CURRENT_DIRECTORY;
 
+/**
+ * Prints current path to root
+ * */
 public class PwdFunction extends BashFunction {
     @Override
     public Value apply() throws VariableNotInScopeException, ExternalFunctionRuntimeException, IOException {

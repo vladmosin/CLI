@@ -12,10 +12,19 @@ import java.util.List;
 
 import static com.hse.cli.Utils.readFile;
 
+/**
+ * Holder for function counting lines, words and bytes
+ */
 public class WcFunction extends BashFunction {
+
+    /**
+     * IF YES, than dataHolder should be output with file name, otherwise without
+     * */
     private enum WITH_FILENAME {YES, NO}
 
-
+    /**
+     * Stores result of wc function running
+     * */
     private class WcDataHolder {
         private int symbols;
         private int words;
@@ -56,6 +65,10 @@ public class WcFunction extends BashFunction {
         }
     }
 
+    /**
+     * If there is no previous function, then read files, which names are given as parameters and counts lines,
+     * words and symbols, otherwise, count lines, words and symbols in result of previous function
+     * */
     @Override
     public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
         if (!hasPreviousResult()) {

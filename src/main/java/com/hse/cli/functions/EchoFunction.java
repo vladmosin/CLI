@@ -8,7 +8,14 @@ import com.hse.cli.interpretator.Value;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Holder for function which just prints all its arguments
+ * */
 public class EchoFunction extends BashFunction {
+
+    /**
+     * Function concatenate result of previous function and arguments
+     * */
     @Override
     public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
         var values = getValues();

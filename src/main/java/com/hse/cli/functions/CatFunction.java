@@ -10,7 +10,16 @@ import java.util.ArrayList;
 
 import static com.hse.cli.Utils.readFile;
 
+
+/**
+ * Holder for function which reads data from files, which names are given in arguments
+ * */
 public class CatFunction extends BashFunction {
+
+    /**
+     * If cat is not first function in pipe than it just return result of previous function,
+     * otherwise, reads all files from given list of names
+     */
     @Override
     public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
         if (!hasPreviousResult()) {

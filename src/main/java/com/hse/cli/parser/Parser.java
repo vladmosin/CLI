@@ -17,7 +17,13 @@ import java.util.regex.Pattern;
 
 import static com.hse.cli.Constants.*;
 
+
+/**
+ * Implementation of parser
+ * */
 public class Parser {
+
+    /** Parse line and return result in form of bash function */
     public static BashFunction parse(@NotNull String line, @NotNull Environment environment)
             throws ParsingException, VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
         BashFunction previousFunction = null;
@@ -106,6 +112,7 @@ public class Parser {
 
     /**
      * Format: $a = expression
+     * Parses new variable declaration
      * */
     public static VariableHolder parseNewVariable(@NotNull String line, @NotNull Environment environment)
             throws ParsingException, IOException, VariableNotInScopeException, ExternalFunctionRuntimeException {

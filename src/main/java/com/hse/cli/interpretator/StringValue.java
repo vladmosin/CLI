@@ -16,13 +16,4 @@ public class StringValue implements Value {
         return value;
     }
 
-    @Override
-    public void execute() {
-        throw new IllegalStateException("Cannot execute string object");
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return value == null;
-    }
 }

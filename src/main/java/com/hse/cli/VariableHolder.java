@@ -1,8 +1,11 @@
 package com.hse.cli;
 
-import com.hse.cli.functions.BashFunction;
 import org.jetbrains.annotations.NotNull;
 
+
+/**
+ * Stores variables defined in environment
+ * */
 public class VariableHolder {
     @NotNull private String name;
     @NotNull private String expression;

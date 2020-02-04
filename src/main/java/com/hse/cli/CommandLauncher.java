@@ -11,9 +11,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Shell in this CLI
+ * Gets lines and returns result of execution
+ * */
 public class CommandLauncher {
     @NotNull private Environment environment = new Environment();
 
+    /**
+     * Launches command and returns result
+     * */
     public List<String> launch(@NotNull String line) throws ParsingException, VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
         var newVariable = Parser.parseNewVariable(line, environment);
         if (newVariable != null) {

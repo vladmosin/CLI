@@ -2,6 +2,9 @@ package com.hse.cli.exceptions;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Exception for mismatching expected and real types for objects implementing Value interface
+ * */
 public class InappropriateValueException extends Exception {
     @NotNull
     private String message;

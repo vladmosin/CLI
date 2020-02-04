@@ -2,6 +2,9 @@ package com.hse.cli.exceptions;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Exception for storing errors while parsing
+ * */
 public class ParsingException extends Exception {
     @NotNull
     private String message;

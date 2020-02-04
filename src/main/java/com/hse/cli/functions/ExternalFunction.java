@@ -20,7 +20,7 @@ public class ExternalFunction extends BashFunction {
     }
 
     public Value apply() throws IOException, ExternalFunctionRuntimeException {
-        var process = (new ProcessBuilder(parameters)).start();
+        var process = Runtime.getRuntime().exec(concatCommand());
         var result = new ArrayList<String>();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
@@ -33,5 +33,15 @@ public class ExternalFunction extends BashFunction {
         }
 
         return new StringValue(result);
+    }
+
+    private String concatCommand() {
+        var builder = new StringBuilder("cmd.exe /c");
+        for (var parameter : parameters) {
+            builder.append(' ');
+            builder.append(parameter);
+        }
+
+        return builder.toString();
     }
 }
