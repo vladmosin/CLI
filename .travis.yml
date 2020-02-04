@@ -8,4 +8,4 @@ jdk:
 os:
 - linux
 env:
-script: gradlew check
+script: ./gradlew check
