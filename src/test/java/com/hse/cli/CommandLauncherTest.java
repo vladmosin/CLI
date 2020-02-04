@@ -10,7 +10,18 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+/* Testing scenarios
+* 1. All functions alone
+* 2. Single and double quotas
+* 3. Variables, both functions and strings
+* 4. Variables with quotas
+* 5. Pipes with all commands
+* 6. Long pipes
+* 7. Exceptions (negative testing)
+* */
 
 class CommandLauncherTest {
     private CommandLauncher launcher;
@@ -191,4 +202,23 @@ class CommandLauncherTest {
         assertTrue(listEquals(result, List.of("1 3 6")));
     }
 
+    @Test
+    void externalFunction() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        launcher.launch("cd Test");
+    }
+
+    @Test
+    void externalFunctionWithPipe() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        launcher.launch("dir | wc");
+    }
+
+    @Test
+    void parsingException() {
+        assertThrows(ParsingException.class, () -> launcher.launch("echo \' dfsd"));
+    }
+
+    @Test
+    void scopeException() {
+        assertThrows(VariableNotInScopeException.class, () -> launcher.launch("echo $a"));
+    }
 }
