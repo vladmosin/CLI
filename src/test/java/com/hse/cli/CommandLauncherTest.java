@@ -1,7 +1,194 @@
 package com.hse.cli;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
+import com.hse.cli.exceptions.ParsingException;
+import com.hse.cli.exceptions.VariableNotInScopeException;
+import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CommandLauncherTest {
+    private CommandLauncher launcher;
+
+    private boolean listEquals(@NotNull List<String> list1, List<String> list2) {
+        if (list1.size() != list2.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < list1.size(); i++) {
+            var elem1 = list1.get(i);
+            var elem2 = list2.get(i);
+            if (!elem1.equals(elem2)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @BeforeEach
+    void setEnvironment() {
+        launcher = new CommandLauncher();
+    }
+
+    @Test
+    void echoWithoutQuotas() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("echo 123");
+        assertTrue(listEquals(result, List.of("123")));
+    }
+
+    @Test
+    void echoWithSingleQuotas() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("echo '123'");
+        assertTrue(listEquals(result, List.of("123")));
+    }
+
+    @Test
+    void echoWithDoubleQuotas() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("echo \"123\"");
+        assertTrue(listEquals(result, List.of("123")));
+    }
+
+    @Test
+    void echoWithMultipleArgs() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("echo '123' 456 \"789\"");
+        assertTrue(listEquals(result, List.of("123 456 789")));
+    }
+
+    @Test
+    void wcOneLineFile() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("wc Test/1.txt");
+        assertTrue(listEquals(result, List.of("1 2 11 Test/1.txt")));
+    }
+
+    @Test
+    void wcMultiLineFile() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("wc Test/2.txt");
+        assertTrue(listEquals(result, List.of("3 3 15 Test/2.txt")));
+    }
+
+    @Test
+    void wcTwoFiles() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("wc Test/2.txt Test/1.txt");
+        assertTrue(listEquals(result, List.of("3 3 15 Test/2.txt", "1 2 11 Test/1.txt", "4 5 26 total")));
+    }
+
+    @Test
+    void pwdWorks() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("pwd");
+    }
+
+    @Test
+    void catSingleLineFile() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("cat Test/1.txt");
+        assertTrue(listEquals(result, List.of("simple line")));
+    }
+
+    @Test
+    void catMultiLineFile() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("cat Test/2.txt");
+        assertTrue(listEquals(result, List.of("multiline", "in", "file")));
+    }
+
+    @Test
+    void catTwoFiles() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("cat Test/2.txt Test/1.txt");
+        assertTrue(listEquals(result, List.of("multiline", "in", "file", "simple line")));
+    }
+
+    @Test
+    void variablePrimitive() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("$a = \"123\"");
+        assertTrue(listEquals(result, List.of()));
+
+        result = launcher.launch("$a");
+        assertTrue(listEquals(result, List.of("123")));
+    }
+
+    @Test
+    void variableFunction() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("$a = echo \"123\"");
+        assertTrue(listEquals(result, List.of()));
+
+        result = launcher.launch("$a");
+        assertTrue(listEquals(result, List.of("123")));
+    }
+
+    @Test
+    void variableChange() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("$a = \"123\"");
+        assertTrue(listEquals(result, List.of()));
+
+        result = launcher.launch("$a = \"345\"");
+        assertTrue(listEquals(result, List.of()));
+
+        result = launcher.launch("$a");
+        assertTrue(listEquals(result, List.of("345")));
+    }
+
+    @Test
+    void variableFunctionAndPrimitive() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("$a = \"123\"");
+        assertTrue(listEquals(result, List.of()));
+
+        result = launcher.launch("$b = echo");
+        assertTrue(listEquals(result, List.of()));
+
+        result = launcher.launch("$b $a");
+        assertTrue(listEquals(result, List.of("123")));
+    }
+
+    @Test
+    void variableFunctionInQuotas() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("$a = echo");
+        assertTrue(listEquals(result, List.of()));
+
+        result = launcher.launch("echo '$a'");
+        assertTrue(listEquals(result, List.of("echo")));
+    }
+
+    @Test
+    void recursiveCat() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("cat '$(cat Test/3.txt)'");
+        assertTrue(listEquals(result, List.of("simple line", "multiline", "in", "file")));
+    }
+
+    @Test
+    void pipeCat() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("echo 123 | cat");
+        assertTrue(listEquals(result, List.of("123")));
+    }
+
+    @Test
+    void pipeEcho() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("cat Test/1.txt | echo");
+        assertTrue(listEquals(result, List.of("simple line")));
+    }
+
+    @Test
+    void pipeWc() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("cat Test/1.txt | wc");
+        assertTrue(listEquals(result, List.of("1 2 11")));
+    }
+
+    @Test
+    void pipeVariable() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("$a = \"123\"");
+        assertTrue(listEquals(result, List.of()));
+
+        result = launcher.launch("echo $a | echo");
+        assertTrue(listEquals(result, List.of("123")));
+    }
+
+    @Test
+    void twoPipes() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("cat Test/1.txt | wc | wc");
+        assertTrue(listEquals(result, List.of("1 3 6")));
+    }
 
 }

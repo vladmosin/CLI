@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Environment {
-    private Map<String, BashFunction> variables = new HashMap<>();
+    private Map<String, String> variables = new HashMap<>();
 
     public void addVariable(@NotNull VariableHolder variableHolder) {
         String name = variableHolder.getName();
-        BashFunction expression = variableHolder.getExpression();
+        var expression = variableHolder.getExpression();
 
         if (variables.containsKey(name)) {
             variables.replace(name, expression);
@@ -22,7 +22,7 @@ public class Environment {
         }
     }
 
-    public BashFunction getVariable(@NotNull String name) throws VariableNotInScopeException {
+    public String getVariable(@NotNull String name) throws VariableNotInScopeException {
         if (variables.containsKey(name)) {
             return variables.get(name);
         } else {

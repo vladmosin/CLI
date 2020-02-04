@@ -11,12 +11,15 @@ import java.util.List;
 public class EchoFunction extends BashFunction {
     @Override
     public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
-        if (hasPreviousResult()) {
-            getPreviousResult();
-        }
-
         var values = getValues();
         var printingString = new StringBuilder();
+
+        if (hasPreviousResult()) {
+            for (var line : getPreviousResult().storedValue()) {
+                printingString.append(line);
+                printingString.append(' ');
+            }
+        }
 
         for (var value : values) {
             for (var line : value.storedValue()) {
@@ -25,6 +28,7 @@ public class EchoFunction extends BashFunction {
             }
         }
 
-        return new StringValue(List.of(printingString.toString()));
+        var resultString = printingString.toString();
+        return new StringValue(List.of(resultString.substring(0, resultString.length() - 1)));
     }
 }

@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -20,8 +21,13 @@ public class Parser {
     public static BashFunction parse(@NotNull String line, @NotNull Environment environment)
             throws ParsingException, VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
         BashFunction previousFunction = null;
-        for (String pipePart : splitIntoPipes(line)) {
+        for (String pipePart : splitIntoPipes(line, '|')) {
             var bashFunction = parseVariableFunction(pipePart.trim(), environment);
+
+            if (bashFunction == null) {
+                bashFunction = parseString(pipePart, environment);
+            }
+
             if (bashFunction == null) {
                 bashFunction = parseBashFunction(pipePart.trim(), environment);
             }
@@ -77,11 +83,24 @@ public class Parser {
     }
 
     private static BashFunction parseVariableFunction(@NotNull String line, @NotNull Environment environment)
-            throws VariableNotInScopeException {
-        if (line.length() == 0 || line.charAt(0) != '$') {
+            throws VariableNotInScopeException, ParsingException, ExternalFunctionRuntimeException, IOException {
+
+        var parts = splitIntoPipes(line, ' ');
+        if (parts.size() == 0 || parts.get(0).length() == 0 || parts.get(0).charAt(0) != '$') {
             return null;
         } else {
-            return environment.getVariable(line.substring(1).trim());
+            var builder = new StringBuilder();
+            builder.append(environment.getVariable(parts.get(0).substring(1).trim()));
+
+            for (int i = 1; i < parts.size(); i++) {
+                var part = parts.get(i);
+                if (part.trim().length() > 0) {
+                    builder.append(' ');
+                    builder.append(part.trim());
+                }
+            }
+
+            return parse(builder.toString(), environment);
         }
     }
 
@@ -103,17 +122,8 @@ public class Parser {
 
         var variableName = line.substring(1, firstEqualitySymbol).trim();
 
-        var identityExpression = parseString(line.substring(firstEqualitySymbol + 1).trim(), environment);
-        if (identityExpression != null) {
-            return new VariableHolder(variableName, identityExpression);
-        }
-        var expression = parse(line.substring(firstEqualitySymbol + 1).trim(), environment);
-
-        if (expression != null) {
-            return new VariableHolder(variableName, expression);
-        } else {
-            return null;
-        }
+        var expression = line.substring(firstEqualitySymbol + 1).trim();
+        return new VariableHolder(variableName, expression);
     }
 
     private static int firstEqualitySymbol(@NotNull String line) {
@@ -148,41 +158,55 @@ public class Parser {
     private static BashFunction parseStringByDefault(@NotNull String line, @NotNull Environment environment)
             throws IOException, VariableNotInScopeException, ParsingException, ExternalFunctionRuntimeException {
         if (Pattern.matches("^'\\$\\([^']+\\)'$", line)) {
-            return parse(line.substring(3, line.length() - 2), environment);
+            return parse(line.substring(3, line.length() - 2) , environment);
         } else if (Pattern.matches("^'\\$[^']+'$", line)) {
-            return environment.getVariable(line.substring(2, line.length() - 1));
-        } else if (Pattern.matches("^\"[^\"]+\"$", line.substring(1, line.length() - 1))) {
-            return new IdentityFunction(new StringValue(List.of(line.trim())));
+            return parse("'" + environment.getVariable(line.substring(2, line.length() - 1)) + "'", environment);
+        } else if (Pattern.matches("^\"[^\"]+\"$", line)) {
+            return new IdentityFunction(new StringValue(List.of(line.substring(1, line.length() - 1).trim())));
+        } else if (Pattern.matches("^'[^\']+'$", line)) {
+            return substituteVariables(line.substring(1, line.length() - 1), environment);
         } else {
             return substituteVariables(line, environment);
         }
     }
 
-    private static IdentityFunction substituteVariables(@NotNull String line, @NotNull Environment environment) throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
+    private static BashFunction substituteVariables(@NotNull String line, @NotNull Environment environment) throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException, ParsingException {
         var parts = line.split("\\$"); // name ... something else
-        var substitutionResult = new ArrayList<String>();
 
-        substitutionResult.add(parts[0]);
+        if (parts.length == 1) {
+            return new IdentityFunction(new StringValue(Arrays.asList(parts)));
+        }
+
+        var substitutionResult = new StringBuilder();
+
+        if (parts[0].trim().length() > 0) {
+            substitutionResult.append(parts[0].trim());
+        }
 
         for (int i = 1; i < parts.length; i++) {
             var part = parts[i];
             int nameLength = getLastNameIndex(part);
             var name = part.substring(0, nameLength);
 
-            substitutionResult.addAll(environment.getVariable(name).apply().storedValue());
+            if (substitutionResult.length() > 0) {
+                substitutionResult.append(' ');
+            }
+
+            substitutionResult.append(environment.getVariable(name));
 
             if (name.length() < part.length()) {
-                substitutionResult.add(part.substring(nameLength));
+                substitutionResult.append(' ');
+                substitutionResult.append(part.substring(nameLength));
             }
         }
 
-        return new IdentityFunction(new StringValue(substitutionResult));
+        return parse(substitutionResult.toString(), environment);
     }
 
     private static int getLastNameIndex(@NotNull String line) throws VariableNotInScopeException {
         for (int i = 0; i < line.length(); i++) {
             char symbol = line.charAt(i);
-            if (!Character.isLetter(symbol) || !Character.isDigit(symbol)) {
+            if (!Character.isLetter(symbol) && !Character.isDigit(symbol)) {
                 if (i == 0) {
                     throw new VariableNotInScopeException("Variable with empty name does not exists", null);
                 }
@@ -255,15 +279,15 @@ public class Parser {
         return tokens;
     }
 
-    private static List<String> splitIntoPipes(@NotNull String line) {
+    private static List<String> splitIntoPipes(@NotNull String line, char delimiter) {
         char quota = 0;
         int start = 0;
         var pipes = new ArrayList<String>();
 
         for (int i = 0; i < line.length(); i++) {
             if (quota == 0) {
-                if (line.charAt(i) == '|') {
-                    pipes.add(line.substring(start, i + 1));
+                if (line.charAt(i) == delimiter) {
+                    pipes.add(line.substring(start, i));
                     start = i + 1;
                 } else if (line.charAt(i) == '\'' || line.charAt(i) == '\"') {
                     quota = line.charAt(i);
@@ -278,8 +302,8 @@ public class Parser {
         return pipes;
     }
 
-    private static IdentityFunction parseString(@NotNull String line, @NotNull Environment environment)
-            throws IOException, ExternalFunctionRuntimeException, VariableNotInScopeException {
+    private static BashFunction parseString(@NotNull String line, @NotNull Environment environment)
+            throws IOException, ExternalFunctionRuntimeException, VariableNotInScopeException, ParsingException {
         if (Pattern.matches("^'[^']+'$", line)) {
             return substituteVariables(line.substring(1, line.length() - 1), environment);
         } else if (Pattern.matches("^\"[^\"]+\"$", line)) {

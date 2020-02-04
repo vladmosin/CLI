@@ -5,9 +5,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class VariableHolder {
     @NotNull private String name;
-    @NotNull private BashFunction expression;
+    @NotNull private String expression;
 
-    public VariableHolder(@NotNull String name, @NotNull BashFunction expression) {
+    public VariableHolder(@NotNull String name, @NotNull String expression) {
         this.name = name;
         this.expression = expression;
     }
@@ -18,7 +18,7 @@ public class VariableHolder {
     }
 
     @NotNull
-    public BashFunction getExpression() {
+    public String getExpression() {
         return expression;
     }
 }

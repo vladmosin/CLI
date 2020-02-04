@@ -2,20 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52b70366-8c58-48d9-a074-7baeda4eb2e1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/CommandLauncher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/exceptions/ExternalFunctionRuntimeException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/ExternalFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Test/1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Test/2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Test/3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/BashFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/BashFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/CatFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/CatFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hse/cli/VariableHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/VariableHolder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/EchoFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/EchoFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/ExitFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/ExitFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/IdentityFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/IdentityFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/PwdFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/PwdFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/WcFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/WcFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/Environment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/hse/cli/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hse/cli/parser/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/hse/cli/CommandLauncherTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/hse/cli/CommandLauncherTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -33,107 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/CatFunction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="19" column="53" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/EchoFunction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="25" column="9" lean-forward="true" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/WcFunction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/ExitFunction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/Application.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/IdentityFunction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="22" column="18" lean-forward="true" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/ExternalFunction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/parser/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="154" column="75" selection-start-line="154" selection-start-column="75" selection-end-line="154" selection-end-column="75" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/BashFunction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="20" selection-end-column="5" />
+            <state relative-caret-position="101">
+              <caret line="173" selection-start-line="173" selection-end-line="173" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -144,8 +46,95 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/CommandLauncher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="65">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="220">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/EchoFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/hse/cli/CommandLauncherTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="183" selection-start-line="183" selection-end-line="183" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test/3.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test/1.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="11" selection-start-column="11" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/Application.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="205">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/WcFunction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="918">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/Environment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -160,13 +149,13 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>getLastNameIndex</find>
-      <find>substit</find>
       <find>No pre</find>
       <find>substituteV</find>
       <find>parseBash</find>
@@ -174,6 +163,11 @@
       <find>parseStr</find>
       <find>' '</find>
       <find>parseStringB</find>
+      <find>substit</find>
+      <find>Ident</find>
+      <find>parseStringBy</find>
+      <find>parseVa</find>
+      <find>Wc</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -189,7 +183,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/exceptions/VariableNotScopeException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/BashFunction.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/EmptyFunction.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/exceptions/InappropriateValueException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/Value.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/StringValue.java" />
@@ -199,26 +192,31 @@
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/Parser.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/exceptions/ParsingException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/VariableHolder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/Environment.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/exceptions/ExternalFunctionRuntimeException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/Application.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/CommandLauncher.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/BashFunction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/EchoFunction.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/ExitFunction.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/IdentityFunction.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/PwdFunction.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/WcFunction.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/ExternalFunction.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/VariableFunction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/parser/Parser.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/CatFunction.java" />
+        <option value="$PROJECT_DIR$/Test/1.txt" />
+        <option value="$PROJECT_DIR$/Test/2.txt" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/VariableHolder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/Environment.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/parser/Parser.java" />
+        <option value="$PROJECT_DIR$/Test/3.txt" />
+        <option value="$PROJECT_DIR$/src/test/java/com/hse/cli/CommandLauncherTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/hse/cli/functions/EchoFunction.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="width" value="1112" />
+    <option name="width" value="1113" />
     <option name="height" value="1005" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -227,6 +225,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -268,15 +267,6 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="cli" type="462c0819:PsiDirectoryNode" />
-              <item name="exceptions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CLI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CLI" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="cli" type="462c0819:PsiDirectoryNode" />
               <item name="functions" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -297,11 +287,36 @@
               <item name="cli" type="462c0819:PsiDirectoryNode" />
               <item name="parser" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="CLI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CLI" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="CLI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CLI" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CLI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CLI" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cli" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CLI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CLI" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Test" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -311,7 +326,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1580746701656" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1580819894470" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/com/hse/cli" />
@@ -319,6 +334,14 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.hse.cli" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -332,7 +355,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.CommandLauncherTest">
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.hse.cli.Application" />
       <module name="HSEMosinVladislav.CLI.main" />
@@ -346,9 +369,76 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CommandLauncherTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HSEMosinVladislav.CLI.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hse.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hse.cli" />
+      <option name="MAIN_CLASS_NAME" value="com.hse.cli.CommandLauncherTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommandLauncherTest.pipeVariable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HSEMosinVladislav.CLI.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hse.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hse.cli" />
+      <option name="MAIN_CLASS_NAME" value="com.hse.cli.CommandLauncherTest" />
+      <option name="METHOD_NAME" value="pipeVariable" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommandLauncherTest.recursiveCat" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HSEMosinVladislav.CLI.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hse.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hse.cli" />
+      <option name="MAIN_CLASS_NAME" value="com.hse.cli.CommandLauncherTest" />
+      <option name="METHOD_NAME" value="recursiveCat" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommandLauncherTest.variableChange" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="HSEMosinVladislav.CLI.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hse.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hse.cli" />
+      <option name="MAIN_CLASS_NAME" value="com.hse.cli.CommandLauncherTest" />
+      <option name="METHOD_NAME" value="variableChange" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CommandLauncherTest" />
+        <item itemvalue="JUnit.CommandLauncherTest.variableChange" />
+        <item itemvalue="JUnit.CommandLauncherTest.pipeVariable" />
         <item itemvalue="Application.Application" />
+        <item itemvalue="JUnit.CommandLauncherTest.recursiveCat" />
       </list>
     </recent_temporary>
   </component>
@@ -366,37 +456,71 @@
       <workItem from="1580147690938" duration="7765000" />
       <workItem from="1580566690845" duration="16457000" />
       <workItem from="1580650213763" duration="2028000" />
-      <workItem from="1580735279623" duration="11099000" />
+      <workItem from="1580735279623" duration="17178000" />
+      <workItem from="1580814496959" duration="5112000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="CommandLauncherTest_recursiveCat - 2020.02.04 at 14h 44m 20s.xml">
+      <configuration name="CommandLauncherTest.recursiveCat" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLauncherTest_recursiveCat - 2020.02.04 at 14h 48m 49s.xml">
+      <configuration name="CommandLauncherTest.recursiveCat" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLauncherTest_recursiveCat - 2020.02.04 at 14h 48m 53s.xml">
+      <configuration name="CommandLauncherTest.recursiveCat" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLauncherTest_recursiveCat - 2020.02.04 at 14h 49m 44s.xml">
+      <configuration name="CommandLauncherTest.recursiveCat" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLauncherTest - 2020.02.04 at 15h 06m 12s.xml">
+      <configuration name="CommandLauncherTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLauncherTest_pipeVariable - 2020.02.04 at 15h 29m 11s.xml">
+      <configuration name="CommandLauncherTest.pipeVariable" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLauncherTest_pipeVariable - 2020.02.04 at 15h 32m 45s.xml">
+      <configuration name="CommandLauncherTest.pipeVariable" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLauncherTest_pipeVariable - 2020.02.04 at 15h 34m 45s.xml">
+      <configuration name="CommandLauncherTest.pipeVariable" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLauncherTest_pipeVariable - 2020.02.04 at 15h 35m 27s.xml">
+      <configuration name="CommandLauncherTest.pipeVariable" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CommandLauncherTest_pipeVariable - 2020.02.04 at 15h 35m 47s.xml">
+      <configuration name="CommandLauncherTest.pipeVariable" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47129000" />
+    <option name="totallyTimeSpent" value="58320000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1390" height="747" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49894738" visible="true" weight="0.265015" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49894738" visible="true" weight="0.26876876" />
       <window_info id="Structure" order="1" sideWeight="0.5021097" side_tool="true" weight="0.265015" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" weight="0.32843137" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.44607842" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.12745099" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29738563" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.41339868" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.33006537" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.33006537" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="bottom" id="Version Control" order="12" />
+      <window_info anchor="bottom" id="Messages" order="13" weight="0.32843137" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -449,16 +573,28 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/hse/cli/CommandLauncher.java</url>
-          <line>17</line>
-          <properties />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/CatFunction.java</url>
           <line>19</line>
           <properties />
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/hse/cli/CommandLauncherTest.java</url>
+          <line>53</line>
+          <properties />
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/WcFunction.java</url>
+          <line>72</line>
+          <properties />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/hse/cli/CommandLauncherTest.java</url>
+          <line>183</line>
+          <properties />
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -466,13 +602,6 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/Value.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -516,16 +645,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/Environment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/Expression.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -562,16 +681,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/VariableHolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/EmptyValue.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -586,16 +695,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/WcFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -632,57 +731,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/VariableFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="9" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/CommandLauncher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/VariableFunction.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/IdentityFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
-          <caret line="22" column="18" lean-forward="true" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/parser/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="154" column="75" selection-start-line="154" selection-start-column="75" selection-end-line="154" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/EchoFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="25" column="9" lean-forward="true" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
+          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -691,8 +744,116 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/CatFunction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
+        <state relative-caret-position="198">
           <caret line="19" column="53" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/VariableHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="3" selection-start-column="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/WcFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/interpretator/Environment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="11" selection-start-column="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test/3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/parser/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="173" selection-start-line="173" selection-end-line="173" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/hse/cli/CommandLauncherTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="183" selection-start-line="183" selection-end-line="183" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/CommandLauncher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/hse/cli/functions/EchoFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -1,3 +1,5 @@
 
 *.class
 *.kotlin_module
+*.bin
+*.lock

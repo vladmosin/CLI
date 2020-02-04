@@ -2,6 +2,10 @@ package com.hse.cli.exceptions;
 
 import org.jetbrains.annotations.NotNull;
 
+
+/**
+ * Holder for exception caused by running external functions
+ * */
 public class ExternalFunctionRuntimeException extends Exception {
     @NotNull
     private String message;
