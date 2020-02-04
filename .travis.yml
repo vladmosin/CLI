@@ -2,6 +2,6 @@ language: java
 jdk:
 - oraclejdk11
 os:
-- windows
+- linux
 env:
 script: ./gradlew check
