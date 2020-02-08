@@ -36,7 +36,7 @@ public abstract class BashFunction {
         parameters.add(value);
     }
 
-    public List<Value> getValues() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
+    public List<Value> getValues() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException, ParsingException {
         var values = new ArrayList<Value>();
         for (var parameter : parameters) {
             Value value = parameter.apply();
@@ -46,7 +46,7 @@ public abstract class BashFunction {
         return values;
     }
 
-    protected Value getPreviousResult() throws IOException, VariableNotInScopeException, ExternalFunctionRuntimeException {
+    protected Value getPreviousResult() throws IOException, VariableNotInScopeException, ExternalFunctionRuntimeException, ParsingException {
         if (previous == null) {
             throw new VariableNotInScopeException("No previous function", null);
         }

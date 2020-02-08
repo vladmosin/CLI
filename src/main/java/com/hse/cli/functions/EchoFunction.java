@@ -1,6 +1,7 @@
 package com.hse.cli.functions;
 
 import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
+import com.hse.cli.exceptions.ParsingException;
 import com.hse.cli.exceptions.VariableNotInScopeException;
 import com.hse.cli.interpretator.StringValue;
 import com.hse.cli.interpretator.Value;
@@ -17,7 +18,7 @@ public class EchoFunction extends BashFunction {
      * Function concatenate result of previous function and arguments
      * */
     @Override
-    public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
+    public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException, ParsingException {
         var values = getValues();
         var printingString = new StringBuilder();
 

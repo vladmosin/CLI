@@ -123,21 +123,27 @@ public class GrepFunction extends BashFunction {
         var result = getValues();
 
         int lastIndex = result.size() - 1;
+        int hasPrevious = 1;
+        if (hasPreviousResult()) {
+            hasPrevious = 0;
+        }
 
-        if (result.size() < 2) {
+        if (result.size() < 2 - hasPrevious) {
             throw new ParsingException("not enough arguments", null);
         }
 
-        infoHolder.fileNames = result.get(lastIndex).storedValue();
+        if (hasPrevious == 1) {
+            infoHolder.fileNames = result.get(lastIndex).storedValue();
+        }
 
-        var possibleRegex = result.get(lastIndex - 1).storedValue();
+        var possibleRegex = result.get(lastIndex - hasPrevious).storedValue();
         if (possibleRegex.size() != 1) {
             throw new ParsingException("illegal regex", null);
         }
 
         infoHolder.regex = possibleRegex.get(0);
 
-        for (int i = 0; i < lastIndex - 1; i++) {
+        for (int i = 0; i < lastIndex - hasPrevious; i++) {
             args.addAll(result.get(i).storedValue());
         }
 

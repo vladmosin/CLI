@@ -221,4 +221,46 @@ class CommandLauncherTest {
     void scopeException() {
         assertThrows(VariableNotInScopeException.class, () -> launcher.launch("echo $a"));
     }
+
+    @Test
+    void grepSimpleFile() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("grep 'simple' Test/1.txt");
+        assertTrue(listEquals(result, List.of("simple line")));
+    }
+
+    @Test
+    void grepRegex() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("grep \"^[a-z]{4}$\" Test/2.txt");
+        assertTrue(listEquals(result, List.of("file")));
+    }
+
+    @Test
+    void grepCaseInsensitive() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("grep -i 'MuL[A-Z]+' Test/2.txt");
+        assertTrue(listEquals(result, List.of("multiline")));
+    }
+
+    @Test
+    void grepWords() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("grep -w 'Should' Test/4.txt");
+        assertTrue(listEquals(result, List.of("Should be grepped")));
+    }
+
+    @Test
+    void grepExtraLines() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("grep -A1 'multiline' Test/2.txt");
+        assertTrue(listEquals(result, List.of("multiline", "in")));
+    }
+
+    @Test
+    void grepAllFlags() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("grep -A1 -iw '[A-Z]{2}' Test/2.txt");
+        assertTrue(listEquals(result, List.of("in", "file")));
+    }
+
+    @Test
+    void grepInPipe() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var result = launcher.launch("cat Test/2.txt | grep -A1 -iw '[A-Z]{2}'");
+        assertTrue(listEquals(result, List.of("in", "file")));
+    }
 }
