@@ -8,4 +8,5 @@ public class Constants {
     public static final String PWD = "pwd";
     public static final String EXIT = "exit";
     public static final String WC = "wc";
+    public static final String GREP = "grep";
 }

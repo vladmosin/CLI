@@ -63,6 +63,8 @@ public class Parser {
                 return new PwdFunction();
             case WC:
                 return new WcFunction();
+            case GREP:
+                    return new GrepFunction();
             default:
                 return null;
         }
