@@ -114,7 +114,7 @@ class CommandLauncherTest {
 
     @Test
     void variablePrimitive() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
-        var result = launcher.launch("$a = \"123\"");
+        var result = launcher.launch("a = \"123\"");
         assertTrue(listEquals(result, List.of()));
 
         result = launcher.launch("$a");
@@ -123,7 +123,7 @@ class CommandLauncherTest {
 
     @Test
     void variableFunction() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
-        var result = launcher.launch("$a = echo \"123\"");
+        var result = launcher.launch("a = echo \"123\"");
         assertTrue(listEquals(result, List.of()));
 
         result = launcher.launch("$a");
@@ -132,10 +132,10 @@ class CommandLauncherTest {
 
     @Test
     void variableChange() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
-        var result = launcher.launch("$a = \"123\"");
+        var result = launcher.launch("a = \"123\"");
         assertTrue(listEquals(result, List.of()));
 
-        result = launcher.launch("$a = \"345\"");
+        result = launcher.launch("a = \"345\"");
         assertTrue(listEquals(result, List.of()));
 
         result = launcher.launch("$a");
@@ -144,10 +144,10 @@ class CommandLauncherTest {
 
     @Test
     void variableFunctionAndPrimitive() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
-        var result = launcher.launch("$a = \"123\"");
+        var result = launcher.launch("a = \"123\"");
         assertTrue(listEquals(result, List.of()));
 
-        result = launcher.launch("$b = echo");
+        result = launcher.launch("b = echo");
         assertTrue(listEquals(result, List.of()));
 
         result = launcher.launch("$b $a");
@@ -156,16 +156,16 @@ class CommandLauncherTest {
 
     @Test
     void variableFunctionInQuotas() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
-        var result = launcher.launch("$a = echo");
+        var result = launcher.launch("a = echo");
         assertTrue(listEquals(result, List.of()));
 
-        result = launcher.launch("echo '$a'");
+        result = launcher.launch("echo \"$a\"");
         assertTrue(listEquals(result, List.of("echo")));
     }
 
     @Test
     void recursiveCat() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
-        var result = launcher.launch("cat '$(cat Test/3.txt)'");
+        var result = launcher.launch("cat \"$(cat Test/3.txt)\"");
         assertTrue(listEquals(result, List.of("simple line", "multiline", "in", "file")));
     }
 
@@ -189,7 +189,7 @@ class CommandLauncherTest {
 
     @Test
     void pipeVariable() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
-        var result = launcher.launch("$a = \"123\"");
+        var result = launcher.launch("a = \"123\"");
         assertTrue(listEquals(result, List.of()));
 
         result = launcher.launch("echo $a | echo");

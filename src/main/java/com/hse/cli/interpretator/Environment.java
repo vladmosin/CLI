@@ -11,6 +11,13 @@ import java.util.Map;
 public class Environment {
     private Map<String, String> variables = new HashMap<>();
 
+    public Environment() {
+        var systemVariables = System.getenv();
+        for (var variableName : systemVariables.keySet()) {
+            variables.put(variableName, systemVariables.get(variableName));
+        }
+    }
+
     public void addVariable(@NotNull VariableHolder variableHolder) {
         String name = variableHolder.getName();
         var expression = variableHolder.getExpression();
@@ -26,7 +33,7 @@ public class Environment {
         if (variables.containsKey(name)) {
             return variables.get(name);
         } else {
-            throw new VariableNotInScopeException("Variable " + name + "not in scope", null);
+            throw new VariableNotInScopeException("Variable with name \"" + name + "\" is not in scope", null);
         }
     }
 

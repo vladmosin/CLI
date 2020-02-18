@@ -6,9 +6,6 @@ import com.hse.cli.interpretator.Value;
 
 import java.io.IOException;
 
-import static java.lang.System.exit;
-
-
 /**
  * Holder for function exiting shell
  * */
@@ -23,7 +20,6 @@ public class ExitFunction extends BashFunction {
             getPreviousResult();
         }
 
-        exit(0);
         return null;
     }
 }

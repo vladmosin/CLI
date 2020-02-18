@@ -22,13 +22,16 @@ public class CommandLauncher {
      * Launches command and returns result
      * */
     public List<String> launch(@NotNull String line) throws ParsingException, VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
-        var newVariable = Parser.parseNewVariable(line, environment);
+        var newVariable = Parser.parseNewVariable(line);
         if (newVariable != null) {
             environment.addVariable(newVariable);
             return new ArrayList<>();
         } else {
             var bashFunction = Parser.parse(line, environment);
             if (bashFunction != null) {
+                if (bashFunction.containsExitFunction()) {
+                    return null;
+                }
                 return bashFunction.apply().storedValue();
             } else {
                 throw new ParsingException("Cannot parse command: " + line, null);

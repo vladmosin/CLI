@@ -15,7 +15,11 @@ public class Application {
         while (true) {
             var command = in.nextLine();
             try {
-                for (var answer : launcher.launch(command)) {
+                var results = launcher.launch(command);
+                if (results == null) {
+                    break;
+                }
+                for (var answer : results) {
                     System.out.println(answer);
                 }
             } catch (ParsingException | ExternalFunctionRuntimeException | VariableNotInScopeException e) {
