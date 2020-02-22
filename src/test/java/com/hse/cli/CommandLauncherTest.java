@@ -204,12 +204,12 @@ class CommandLauncherTest {
 
     @Test
     void externalFunction() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
-        launcher.launch("cd Test");
+        launcher.launch("ls Test");
     }
 
     @Test
     void externalFunctionWithPipe() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
-        launcher.launch("cd Test | wc");
+        launcher.launch("ls | wc");
     }
 
     @Test
