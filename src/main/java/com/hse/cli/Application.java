@@ -20,12 +20,10 @@ public class Application {
                     break;
                 }
                 for (var answer : results) {
-                    System.out.println(answer);
+                    System.err.println(answer);
                 }
-            } catch (ParsingException | ExternalFunctionRuntimeException | VariableNotInScopeException e) {
-                System.out.println(e.getMessage());
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
         }
     }

@@ -20,7 +20,13 @@ public class ExternalFunction extends BashFunction {
     }
 
     public Value apply() throws IOException, ExternalFunctionRuntimeException {
-        var process = Runtime.getRuntime().exec(concatCommand());
+        String osName = System.getProperty("os.name").toLowerCase();
+        String command = concatCommand();
+        if (osName.contains("win")) {
+            command = "cmd /c " + command;
+        }
+
+        var process = Runtime.getRuntime().exec(command);
         var result = new ArrayList<String>();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
