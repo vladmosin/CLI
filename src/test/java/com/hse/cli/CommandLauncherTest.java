@@ -221,4 +221,28 @@ class CommandLauncherTest {
     void scopeException() {
         assertThrows(VariableNotInScopeException.class, () -> launcher.launch("echo $a"));
     }
+
+    @Test
+    void failedBefore1() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        launcher.launch("x=1");
+        var result = launcher.launch("echo \"12$x\"");
+        assertTrue(listEquals(result, List.of("121")));
+    }
+
+    @Test
+    void failedBefore2() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        launcher.launch("x=ex");
+        launcher.launch("y=it");
+        launcher.launch("$x$y");
+    }
+
+    @Test
+    void failedBefore3() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        launcher.launch("x=echo");
+        var result = launcher.launch("$x 1");
+        assertTrue(listEquals(result, List.of("1")));
+
+        result = launcher.launch("echo $x");
+        assertTrue(listEquals(result, List.of("echo")));
+    }
 }
