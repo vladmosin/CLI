@@ -8,10 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /* Testing scenarios
 * 1. All functions alone
@@ -244,5 +244,88 @@ class CommandLauncherTest {
 
         result = launcher.launch("echo $x");
         assertTrue(listEquals(result, List.of("echo")));
+    }
+
+    @Test
+    void cdToERelativeDirectory() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        launcher.launch("cd Test");
+        launcher.launch("cd ..");
+        launcher.launch("cd Test");
+        var cdResult = launcher.launch("cd .");
+        assertEquals(cdResult, Collections.emptyList());
+        checkCdToTestDir();
+    }
+
+    @Test
+    void cdToAbsoluteDirectory() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var currentPath = System.getProperty("user.dir");
+        var absolutePath = currentPath + "/Test";
+        var cdResult = launcher.launch("cd " + absolutePath);
+        checkCdToTestDir();
+    }
+
+    @Test
+    void cdWithMultipleArguments() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var cdResult = launcher.launch("cd Test ThisDirDoesNotExist");
+        assertEquals(cdResult, Collections.emptyList());
+        checkCdToTestDir();
+    }
+
+    @Test
+    void cdToHome() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var cdResult = launcher.launch("cd");
+        assertEquals(cdResult, Collections.emptyList());
+        var pwdResult = launcher.launch("pwd");
+        assertEquals(System.getProperty("user.home"), pwdResult.get(0));
+    }
+
+    @Test
+    void cdToNonexistingDirectory() {
+        IOException e = assertThrows(IOException.class, () -> launcher.launch("cd ThisDirDoesNotExist"));
+        assertNull(e.getCause());
+        assertEquals("cannot cd to ThisDirDoesNotExist", e.getMessage());
+    }
+
+    private void checkCdToTestDir() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var pwdResult = launcher.launch("pwd");
+        assertTrue(pwdResult.get(0).endsWith("Test"));
+        var catResult = launcher.launch("cat 1.txt");
+        assertEquals(catResult, List.of("simple line"));
+        var wcResult = launcher.launch("wc 1.txt");
+        assertEquals(wcResult, List.of("1 2 11 1.txt"));
+    }
+
+    @Test
+    void lsCurrentDirectory() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        launcher.launch("cd Test");
+        var lsResult = launcher.launch("ls");
+        assertEquals(List.of("1.txt", "2.txt", "3.txt"), lsResult);
+    }
+
+    @Test
+    void lsRelativeDirectory() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var lsResult = launcher.launch("ls Test");
+        assertEquals(List.of("1.txt", "2.txt", "3.txt"), lsResult);
+    }
+
+    @Test
+    void lsAbsoluteDirectory() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var currentPath = System.getProperty("user.dir");
+        var absolutePath = currentPath + "/Test";
+        var lsResult = launcher.launch("ls " + absolutePath);
+        assertEquals(List.of("1.txt", "2.txt", "3.txt"), lsResult);
+    }
+
+    @Test
+    void lsFile() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        var lsResult = launcher.launch("ls Test/1.txt");
+        assertEquals(List.of("1.txt"), lsResult);
+    }
+
+    @Test
+    void lsNonexistingDirectory() {
+        IOException e = assertThrows(IOException.class, () -> launcher.launch("ls ThisDirDoesNotExist"));
+        assertNull(e.getCause());
+        assertEquals("cannot access 'ThisDirDoesNotExist': no such file or directory", e.getMessage());
     }
 }

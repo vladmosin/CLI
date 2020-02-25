@@ -3,6 +3,7 @@ package com.hse.cli.functions;
 import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
 import com.hse.cli.exceptions.ParsingException;
 import com.hse.cli.exceptions.VariableNotInScopeException;
+import com.hse.cli.interpretator.Environment;
 import com.hse.cli.interpretator.Value;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,6 +26,15 @@ public abstract class BashFunction {
      * Previous function in pipe
      * */
     private BashFunction previous;
+
+    /**
+     * Current mutable environment
+     */
+    private final Environment environment;
+
+    protected BashFunction(Environment environment) {
+        this.environment = environment;
+    }
 
     /**
      * Runs function with given parameters
@@ -60,18 +70,22 @@ public abstract class BashFunction {
         previous = value;
     }
 
-    public static BashFunction create(@NotNull String name) throws ParsingException {
+    public static BashFunction create(@NotNull String name, @NotNull Environment environment) throws ParsingException {
         switch (name) {
             case CAT:
-                return new CatFunction();
+                return new CatFunction(environment);
             case ECHO:
-                return new EchoFunction();
+                return new EchoFunction(environment);
             case EXIT:
-                return new ExitFunction();
+                return new ExitFunction(environment);
             case PWD:
-                return new PwdFunction();
+                return new PwdFunction(environment);
             case WC:
-                return new WcFunction();
+                return new WcFunction(environment);
+            case CD:
+                return new CdFunction(environment);
+            case LS:
+                return new LsFunction(environment);
             default:
                 return null;
         }
@@ -86,5 +100,9 @@ public abstract class BashFunction {
             }
             return previous.containsExitFunction();
         }
+    }
+
+    protected Environment getEnvironment() {
+        return environment;
     }
 }

@@ -8,6 +8,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.hse.cli.Constants.CURRENT_DIRECTORY_ENV;
+import static com.hse.cli.Constants.CURRENT_DIRECTORY_PROPERTY;
+
 public class Environment {
     private Map<String, String> variables = new HashMap<>();
 
@@ -16,6 +19,7 @@ public class Environment {
         for (var variableName : systemVariables.keySet()) {
             variables.put(variableName, systemVariables.get(variableName));
         }
+        variables.put(CURRENT_DIRECTORY_ENV, System.getProperty(CURRENT_DIRECTORY_PROPERTY));
     }
 
     public void addVariable(@NotNull VariableHolder variableHolder) {

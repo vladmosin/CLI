@@ -14,7 +14,7 @@ public class Utils {
     /**
      * Read file into list of strings
      * */
-    public static List<String> readFile(@NotNull String path) throws IOException {
-        return Files.lines(Paths.get(path)).collect(Collectors.toList());
+    public static List<String> readFile(@NotNull String currentDir, @NotNull String path) throws IOException {
+        return Files.lines(Paths.get(currentDir).resolve(path)).collect(Collectors.toList());
     }
 }
