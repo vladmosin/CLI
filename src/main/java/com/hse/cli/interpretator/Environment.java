@@ -5,6 +5,7 @@ import com.hse.cli.exceptions.VariableNotInScopeException;
 import com.hse.cli.functions.BashFunction;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,5 +42,10 @@ public class Environment {
         }
     }
 
-
+    /**
+     * Returns unmodifiable view to the environment variables.
+     */
+    public Map<String, String> getEnvironmentMap() {
+        return Collections.unmodifiableMap(variables);
+    }
 }

@@ -286,6 +286,20 @@ class CommandLauncherTest {
         assertEquals("cannot cd to ThisDirDoesNotExist", e.getMessage());
     }
 
+    @Test
+    void cdChangesDirForSubprocess() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+        launcher.launch("cd Test");
+        var currentPath = System.getProperty("user.dir");
+        if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+            var result = launcher.launch("cmd.exe /c echo %cd%").get(0); // external command
+            assertEquals(currentPath + "\\Test", result);
+        } else {
+            var result = launcher.launch("bash -c pwd").get(0); // external command
+            assertEquals(currentPath + "/Test", result);
+        }
+
+    }
+
     private void checkCdToTestDir() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
         var pwdResult = launcher.launch("pwd");
         assertTrue(pwdResult.get(0).endsWith("Test"));
