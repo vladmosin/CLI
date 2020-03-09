@@ -2,6 +2,7 @@ package com.hse.cli.functions;
 
 import com.hse.cli.Utils;
 import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
+import com.hse.cli.exceptions.InappropriateValueException;
 import com.hse.cli.exceptions.ParsingException;
 import com.hse.cli.exceptions.VariableNotInScopeException;
 import com.hse.cli.interpretator.StringValue;
@@ -16,6 +17,11 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 
+/**
+ * Holder for function which greps input.
+ * Usage: grep [flags] regex filename OR
+ *        ..... | grep [flags] regex
+ * */
 public class GrepFunction extends BashFunction {
     private class GrepInfoHolder {
         private boolean caseInsensitive = false;
@@ -31,7 +37,7 @@ public class GrepFunction extends BashFunction {
 
     @Override
     public Value apply() throws IOException,
-            ExternalFunctionRuntimeException, VariableNotInScopeException, ParsingException {
+            ExternalFunctionRuntimeException, VariableNotInScopeException, ParsingException, InappropriateValueException {
         var info = parseArguments();
         var result = new ArrayList<String>();
 
@@ -51,13 +57,16 @@ public class GrepFunction extends BashFunction {
 
     private List<String> grepContent(@NotNull List<String> content, @NotNull GrepInfoHolder infoHolder) {
         var grepResult = new ArrayList<String>();
-        for (int i = 0; i < content.size(); i++) {
-            var line = content.get(i);
+        int shouldTake = 0;
+        for (String line : content) {
             var lineMatches = grepLine(line, infoHolder);
             if (lineMatches) {
-                for (int j = 0; j <= infoHolder.linesAfterMatched; j++) {
-                    grepResult.add(content.get(i + j));
-                }
+                shouldTake = infoHolder.linesAfterMatched + 1;
+            }
+
+            if (shouldTake > 0) {
+                grepResult.add(line);
+                shouldTake -= 1;
             }
         }
 
@@ -70,24 +79,19 @@ public class GrepFunction extends BashFunction {
         if (regex == null) {
             return true;
         }
+
+        if (infoHolder.matchFullWords) {
+            regex = "\\b" + regex + "\\b";
+        }
+
         Pattern pattern = infoHolder.caseInsensitive ?
                 Pattern.compile(regex, Pattern.CASE_INSENSITIVE) : Pattern.compile(regex);
 
-        if (infoHolder.matchFullWords) {
-            for (var word : line.split(" ")) {
-                if (pattern.matcher(word).matches()) {
-                    return true;
-                }
-            }
-
-            return false;
-        } else {
-            return pattern.matcher(line).find();
-        }
+        return pattern.matcher(line).find();
     }
 
     private GrepInfoHolder parseArguments() throws VariableNotInScopeException,
-            ExternalFunctionRuntimeException, IOException, ParsingException {
+            ExternalFunctionRuntimeException, IOException, ParsingException, InappropriateValueException {
         CommandSpec spec = CommandSpec.create();
         spec.addOption(OptionSpec.builder(CASE_INSENSITIVE).build());
         spec.addOption(OptionSpec.builder(FULL_WORDS).build());
@@ -97,11 +101,16 @@ public class GrepFunction extends BashFunction {
         var args = prepareArgs(infoHolder);
 
         var commandLine = new CommandLine(spec);
-        var parseResult = commandLine.parseArgs(args);
 
-        setArgs(parseResult, infoHolder);
+        try {
+            var parseResult = commandLine.parseArgs(args);
 
-        return infoHolder;
+            setArgs(parseResult, infoHolder);
+
+            return infoHolder;
+        } catch (Exception e) {
+            throw new ParsingException("cannot parse args", null);
+        }
     }
 
     private void setArgs(@NotNull CommandLine.ParseResult parseResult, @NotNull GrepInfoHolder infoHolder) {
@@ -117,7 +126,7 @@ public class GrepFunction extends BashFunction {
     }
 
     private String[] prepareArgs(@NotNull GrepInfoHolder infoHolder) throws IOException,
-            ExternalFunctionRuntimeException, VariableNotInScopeException, ParsingException {
+            ExternalFunctionRuntimeException, VariableNotInScopeException, ParsingException, InappropriateValueException {
 
         var args = new ArrayList<String>();
         var result = getValues();
@@ -128,7 +137,7 @@ public class GrepFunction extends BashFunction {
             hasPrevious = 0;
         }
 
-        if (result.size() < 2 - hasPrevious) {
+        if (result.size() < 1 + hasPrevious) {
             throw new ParsingException("not enough arguments", null);
         }
 

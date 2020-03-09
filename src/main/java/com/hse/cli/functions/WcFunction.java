@@ -1,6 +1,7 @@
 package com.hse.cli.functions;
 
 import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
+import com.hse.cli.exceptions.InappropriateValueException;
 import com.hse.cli.exceptions.ParsingException;
 import com.hse.cli.exceptions.VariableNotInScopeException;
 import com.hse.cli.interpretator.StringValue;
@@ -71,7 +72,7 @@ public class WcFunction extends BashFunction {
      * words and symbols, otherwise, count lines, words and symbols in result of previous function
      * */
     @Override
-    public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException, ParsingException {
+    public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException, ParsingException, InappropriateValueException {
         if (!hasPreviousResult()) {
             var fileInfos = new ArrayList<WcDataHolder>();
             for (var paths : getValues()) {
@@ -125,7 +126,7 @@ public class WcFunction extends BashFunction {
         return new WcDataHolder(totalSymbols, totalWords, totalLines, "total").toString(WITH_FILENAME.YES);
     }
 
-    private WcDataHolder getFileInfo(@NotNull String path) throws IOException {
+    private WcDataHolder getFileInfo(@NotNull String path) throws IOException, InappropriateValueException {
         var input = readFile(path);
         int lines = countLines(input);
         int words = countWords(input);

@@ -1,6 +1,7 @@
 package com.hse.cli;
 
 import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
+import com.hse.cli.exceptions.InappropriateValueException;
 import com.hse.cli.exceptions.ParsingException;
 import com.hse.cli.exceptions.VariableNotInScopeException;
 
@@ -18,7 +19,7 @@ public class Application {
                 for (var answer : launcher.launch(command)) {
                     System.out.println(answer);
                 }
-            } catch (ParsingException | ExternalFunctionRuntimeException | VariableNotInScopeException e) {
+            } catch (ParsingException | ExternalFunctionRuntimeException | VariableNotInScopeException | InappropriateValueException e) {
                 System.out.println(e.getMessage());
             } catch (IOException e) {
                 e.printStackTrace();

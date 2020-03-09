@@ -1,6 +1,7 @@
 package com.hse.cli.functions;
 
 import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
+import com.hse.cli.exceptions.InappropriateValueException;
 import com.hse.cli.exceptions.ParsingException;
 import com.hse.cli.exceptions.VariableNotInScopeException;
 import com.hse.cli.interpretator.StringValue;
@@ -22,7 +23,7 @@ public class CatFunction extends BashFunction {
      * otherwise, reads all files from given list of names
      */
     @Override
-    public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException, ParsingException {
+    public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException, ParsingException, InappropriateValueException {
         if (!hasPreviousResult()) {
             var lines = new ArrayList<String>();
             for (var paths : getValues()) {
