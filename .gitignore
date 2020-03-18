@@ -9,3 +9,4 @@
 .gradle/4.10/gc.properties
 .idea/CLI.iml
 *.bin
+.idea
