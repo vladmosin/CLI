@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Exception for storing errors while parsing
  * */
-public class ParsingException extends Exception {
+public class ParsingException extends CliException {
     @NotNull
     private String message;
     private Exception suppressedException;

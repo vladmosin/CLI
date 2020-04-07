@@ -1,7 +1,7 @@
 package com.hse.cli.functions;
 
-import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
-import com.hse.cli.exceptions.VariableNotInScopeException;
+import com.hse.cli.exceptions.CliException;
+import com.hse.cli.interpretator.Environment;
 import com.hse.cli.interpretator.StringValue;
 import com.hse.cli.interpretator.Value;
 
@@ -12,12 +12,15 @@ import java.util.List;
  * Holder for function which just prints all its arguments
  * */
 public class EchoFunction extends BashFunction {
+    public EchoFunction(Environment environment) {
+        super(environment);
+    }
 
     /**
      * Function concatenate result of previous function and arguments
      * */
     @Override
-    public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
+    public Value apply() throws IOException, CliException {
         var values = getValues();
         var printingString = new StringBuilder();
 

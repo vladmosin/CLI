@@ -1,10 +1,5 @@
 package com.hse.cli;
 
-import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
-import com.hse.cli.exceptions.ParsingException;
-import com.hse.cli.exceptions.VariableNotInScopeException;
-
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Application {

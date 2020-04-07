@@ -50,9 +50,9 @@ public class Parser {
         if (tokens.size() == 0) {
             return null;
         } else {
-            var bashFunction = BashFunction.create(tokens.get(0));
+            var bashFunction = BashFunction.create(tokens.get(0), environment);
             if (bashFunction == null) {
-                return new ExternalFunction(tokens);
+                return new ExternalFunction(tokens, environment);
             } else {
                 for (int i = 1; i < tokens.size(); i++) {
                     var parameter = parseStringByDefault(tokens.get(i).trim(), environment);
@@ -140,7 +140,7 @@ public class Parser {
         } else {
             var stringFunction = parseString(line, environment);
             if (stringFunction == null) {
-                stringFunction = new IdentityFunction(new StringValue(List.of(line)));
+                stringFunction = new IdentityFunction(new StringValue(List.of(line)), environment);
             }
 
             return stringFunction;
@@ -292,10 +292,12 @@ public class Parser {
             throws VariableNotInScopeException, ParsingException {
         line = substituteString(line.trim(), environment);
         if (Pattern.matches("^\"[^\"]+\"$", line)) {
-            return new IdentityFunction(new StringValue(
-                    substituteVariables(List.of(line.substring(1, line.length() - 1)), environment)));
+            return new IdentityFunction(
+                    new StringValue(substituteVariables(List.of(line.substring(1, line.length() - 1)), environment)),
+                    environment
+            );
         } else if (Pattern.matches("^\'[^\"]+\'$", line)) {
-            return new IdentityFunction(new StringValue(List.of(line.substring(1, line.length() - 1))));
+            return new IdentityFunction(new StringValue(List.of(line.substring(1, line.length() - 1))), environment);
         } else {
             return null;
         }

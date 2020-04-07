@@ -1,7 +1,7 @@
 package com.hse.cli.functions;
 
-import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
-import com.hse.cli.exceptions.VariableNotInScopeException;
+import com.hse.cli.exceptions.CliException;
+import com.hse.cli.interpretator.Environment;
 import com.hse.cli.interpretator.StringValue;
 import com.hse.cli.interpretator.Value;
 import org.jetbrains.annotations.NotNull;
@@ -10,12 +10,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.hse.cli.Constants.CURRENT_DIRECTORY_ENV;
 import static com.hse.cli.Utils.readFile;
 
 /**
  * Holder for function counting lines, words and bytes
  */
 public class WcFunction extends BashFunction {
+    public WcFunction(Environment environment) {
+        super(environment);
+    }
 
     /**
      * IF YES, than dataHolder should be output with file name, otherwise without
@@ -70,12 +74,13 @@ public class WcFunction extends BashFunction {
      * words and symbols, otherwise, count lines, words and symbols in result of previous function
      * */
     @Override
-    public Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
+    public Value apply() throws IOException, CliException {
+        String currentDir = getEnvironment().getVariable(CURRENT_DIRECTORY_ENV);
         if (!hasPreviousResult()) {
             var fileInfos = new ArrayList<WcDataHolder>();
             for (var paths : getValues()) {
                 for (var path : paths.storedValue()) {
-                    fileInfos.add(getFileInfo(path));
+                    fileInfos.add(getFileInfo(currentDir, path));
                 }
             }
             return new StringValue(convertAnswerToString(fileInfos));
@@ -124,8 +129,8 @@ public class WcFunction extends BashFunction {
         return new WcDataHolder(totalSymbols, totalWords, totalLines, "total").toString(WITH_FILENAME.YES);
     }
 
-    private WcDataHolder getFileInfo(@NotNull String path) throws IOException {
-        var input = readFile(path);
+    private WcDataHolder getFileInfo(@NotNull String currentDir, @NotNull String path) throws IOException {
+        var input = readFile(currentDir, path);
         int lines = countLines(input);
         int words = countWords(input);
         int symbols = countSymbols(input);
