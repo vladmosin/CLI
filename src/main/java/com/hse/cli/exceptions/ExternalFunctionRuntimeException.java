@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Holder for exception caused by running external functions
  * */
-public class ExternalFunctionRuntimeException extends Exception {
+public class ExternalFunctionRuntimeException extends CliException {
     @NotNull
     private String message;
     private Exception suppressedException;

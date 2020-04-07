@@ -1,8 +1,6 @@
 package com.hse.cli.functions;
 
-import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
-import com.hse.cli.exceptions.ParsingException;
-import com.hse.cli.exceptions.VariableNotInScopeException;
+import com.hse.cli.exceptions.*;
 import com.hse.cli.interpretator.Environment;
 import com.hse.cli.interpretator.Value;
 import org.jetbrains.annotations.NotNull;
@@ -39,13 +37,13 @@ public abstract class BashFunction {
     /**
      * Runs function with given parameters
      * */
-    public abstract Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException;
+    public abstract Value apply() throws CliException, IOException;
 
     public void addValue(BashFunction value) {
         parameters.add(value);
     }
 
-    public List<Value> getValues() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
+    public List<Value> getValues() throws CliException, IOException {
         var values = new ArrayList<Value>();
         for (var parameter : parameters) {
             Value value = parameter.apply();
@@ -55,7 +53,7 @@ public abstract class BashFunction {
         return values;
     }
 
-    protected Value getPreviousResult() throws IOException, VariableNotInScopeException, ExternalFunctionRuntimeException {
+    protected Value getPreviousResult() throws CliException, IOException {
         if (previous == null) {
             throw new VariableNotInScopeException("No previous function", null);
         }

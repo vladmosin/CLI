@@ -1,8 +1,6 @@
 package com.hse.cli;
 
-import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
-import com.hse.cli.exceptions.ParsingException;
-import com.hse.cli.exceptions.VariableNotInScopeException;
+import com.hse.cli.exceptions.*;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,72 +46,72 @@ class CommandLauncherTest {
     }
 
     @Test
-    void echoWithoutQuotas() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void echoWithoutQuotas() throws CliException, IOException {
         var result = launcher.launch("echo 123");
         assertTrue(listEquals(result, List.of("123")));
     }
 
     @Test
-    void echoWithSingleQuotas() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void echoWithSingleQuotas() throws CliException, IOException {
         var result = launcher.launch("echo '123'");
         assertTrue(listEquals(result, List.of("123")));
     }
 
     @Test
-    void echoWithDoubleQuotas() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void echoWithDoubleQuotas() throws CliException, IOException {
         var result = launcher.launch("echo \"123\"");
         assertTrue(listEquals(result, List.of("123")));
     }
 
     @Test
-    void echoWithMultipleArgs() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void echoWithMultipleArgs() throws CliException, IOException {
         var result = launcher.launch("echo '123' 456 \"789\"");
         assertTrue(listEquals(result, List.of("123 456 789")));
     }
 
     @Test
-    void wcOneLineFile() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void wcOneLineFile() throws CliException, IOException {
         var result = launcher.launch("wc Test/1.txt");
         assertTrue(listEquals(result, List.of("1 2 11 Test/1.txt")));
     }
 
     @Test
-    void wcMultiLineFile() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void wcMultiLineFile() throws CliException, IOException {
         var result = launcher.launch("wc Test/2.txt");
         assertTrue(listEquals(result, List.of("3 3 15 Test/2.txt")));
     }
 
     @Test
-    void wcTwoFiles() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void wcTwoFiles() throws CliException, IOException {
         var result = launcher.launch("wc Test/2.txt Test/1.txt");
         assertTrue(listEquals(result, List.of("3 3 15 Test/2.txt", "1 2 11 Test/1.txt", "4 5 26 total")));
     }
 
     @Test
-    void pwdWorks() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void pwdWorks() throws CliException, IOException {
         var result = launcher.launch("pwd");
     }
 
     @Test
-    void catSingleLineFile() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void catSingleLineFile() throws CliException, IOException {
         var result = launcher.launch("cat Test/1.txt");
         assertTrue(listEquals(result, List.of("simple line")));
     }
 
     @Test
-    void catMultiLineFile() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void catMultiLineFile() throws CliException, IOException {
         var result = launcher.launch("cat Test/2.txt");
         assertTrue(listEquals(result, List.of("multiline", "in", "file")));
     }
 
     @Test
-    void catTwoFiles() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void catTwoFiles() throws CliException, IOException {
         var result = launcher.launch("cat Test/2.txt Test/1.txt");
         assertTrue(listEquals(result, List.of("multiline", "in", "file", "simple line")));
     }
 
     @Test
-    void variablePrimitive() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void variablePrimitive() throws CliException, IOException {
         var result = launcher.launch("a = \"123\"");
         assertTrue(listEquals(result, List.of()));
 
@@ -122,7 +120,7 @@ class CommandLauncherTest {
     }
 
     @Test
-    void variableFunction() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void variableFunction() throws CliException, IOException {
         var result = launcher.launch("a = echo \"123\"");
         assertTrue(listEquals(result, List.of()));
 
@@ -131,7 +129,7 @@ class CommandLauncherTest {
     }
 
     @Test
-    void variableChange() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void variableChange() throws CliException, IOException {
         var result = launcher.launch("a = \"123\"");
         assertTrue(listEquals(result, List.of()));
 
@@ -143,7 +141,7 @@ class CommandLauncherTest {
     }
 
     @Test
-    void variableFunctionAndPrimitive() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void variableFunctionAndPrimitive() throws CliException, IOException {
         var result = launcher.launch("a = \"123\"");
         assertTrue(listEquals(result, List.of()));
 
@@ -155,7 +153,7 @@ class CommandLauncherTest {
     }
 
     @Test
-    void variableFunctionInQuotas() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void variableFunctionInQuotas() throws CliException, IOException {
         var result = launcher.launch("a = echo");
         assertTrue(listEquals(result, List.of()));
 
@@ -164,31 +162,31 @@ class CommandLauncherTest {
     }
 
     @Test
-    void recursiveCat() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void recursiveCat() throws CliException, IOException {
         var result = launcher.launch("cat \"$(cat Test/3.txt)\"");
         assertTrue(listEquals(result, List.of("simple line", "multiline", "in", "file")));
     }
 
     @Test
-    void pipeCat() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void pipeCat() throws CliException, IOException {
         var result = launcher.launch("echo 123 | cat");
         assertTrue(listEquals(result, List.of("123")));
     }
 
     @Test
-    void pipeEcho() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void pipeEcho() throws CliException, IOException {
         var result = launcher.launch("cat Test/1.txt | echo");
         assertTrue(listEquals(result, List.of("simple line")));
     }
 
     @Test
-    void pipeWc() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void pipeWc() throws CliException, IOException {
         var result = launcher.launch("cat Test/1.txt | wc");
         assertTrue(listEquals(result, List.of("1 2 11")));
     }
 
     @Test
-    void pipeVariable() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void pipeVariable() throws CliException, IOException {
         var result = launcher.launch("a = \"123\"");
         assertTrue(listEquals(result, List.of()));
 
@@ -197,18 +195,18 @@ class CommandLauncherTest {
     }
 
     @Test
-    void twoPipes() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void twoPipes() throws CliException, IOException {
         var result = launcher.launch("cat Test/1.txt | wc | wc");
         assertTrue(listEquals(result, List.of("1 3 6")));
     }
 
     @Test
-    void externalFunction() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void externalFunction() throws CliException, IOException {
         launcher.launch("find \"simple\" Test/1.txt");
     }
 
     @Test
-    void externalFunctionWithPipe() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void externalFunctionWithPipe() throws CliException, IOException {
         launcher.launch("find \"simple\" Test/1.txt | wc");
     }
 
@@ -223,21 +221,21 @@ class CommandLauncherTest {
     }
 
     @Test
-    void failedBefore1() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void failedBefore1() throws CliException, IOException {
         launcher.launch("x=1");
         var result = launcher.launch("echo \"12$x\"");
         assertTrue(listEquals(result, List.of("121")));
     }
 
     @Test
-    void failedBefore2() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void failedBefore2() throws CliException, IOException {
         launcher.launch("x=ex");
         launcher.launch("y=it");
         launcher.launch("$x$y");
     }
 
     @Test
-    void failedBefore3() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void failedBefore3() throws CliException, IOException {
         launcher.launch("x=echo");
         var result = launcher.launch("$x 1");
         assertTrue(listEquals(result, List.of("1")));
@@ -247,7 +245,7 @@ class CommandLauncherTest {
     }
 
     @Test
-    void cdToERelativeDirectory() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void cdToERelativeDirectory() throws CliException, IOException {
         launcher.launch("cd Test");
         launcher.launch("cd ..");
         launcher.launch("cd Test");
@@ -257,7 +255,7 @@ class CommandLauncherTest {
     }
 
     @Test
-    void cdToAbsoluteDirectory() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void cdToAbsoluteDirectory() throws CliException, IOException {
         var currentPath = System.getProperty("user.dir");
         var absolutePath = currentPath + "/Test";
         var cdResult = launcher.launch("cd " + absolutePath);
@@ -265,14 +263,12 @@ class CommandLauncherTest {
     }
 
     @Test
-    void cdWithMultipleArguments() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
-        var cdResult = launcher.launch("cd Test ThisDirDoesNotExist");
-        assertEquals(cdResult, Collections.emptyList());
-        checkCdToTestDir();
+    void cdWithMultipleArguments() {
+        assertThrows(IllegalArgumentsException.class, () -> launcher.launch("cd Test ThisDirDoesNotExist"));
     }
 
     @Test
-    void cdToHome() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void cdToHome() throws CliException, IOException {
         var cdResult = launcher.launch("cd");
         assertEquals(cdResult, Collections.emptyList());
         var pwdResult = launcher.launch("pwd");
@@ -287,7 +283,7 @@ class CommandLauncherTest {
     }
 
     @Test
-    void cdChangesDirForSubprocess() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void cdChangesDirForSubprocess() throws CliException, IOException {
         launcher.launch("cd Test");
         var currentPath = System.getProperty("user.dir");
         if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
@@ -300,7 +296,7 @@ class CommandLauncherTest {
 
     }
 
-    private void checkCdToTestDir() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    private void checkCdToTestDir() throws CliException, IOException {
         var pwdResult = launcher.launch("pwd");
         assertTrue(pwdResult.get(0).endsWith("Test"));
         var catResult = launcher.launch("cat 1.txt");
@@ -310,20 +306,20 @@ class CommandLauncherTest {
     }
 
     @Test
-    void lsCurrentDirectory() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void lsCurrentDirectory() throws CliException, IOException {
         launcher.launch("cd Test");
         var lsResult = launcher.launch("ls");
         assertEquals(List.of("1.txt", "2.txt", "3.txt"), lsResult);
     }
 
     @Test
-    void lsRelativeDirectory() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void lsRelativeDirectory() throws CliException, IOException {
         var lsResult = launcher.launch("ls Test");
         assertEquals(List.of("1.txt", "2.txt", "3.txt"), lsResult);
     }
 
     @Test
-    void lsAbsoluteDirectory() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void lsAbsoluteDirectory() throws CliException, IOException {
         var currentPath = System.getProperty("user.dir");
         var absolutePath = currentPath + "/Test";
         var lsResult = launcher.launch("ls " + absolutePath);
@@ -331,7 +327,7 @@ class CommandLauncherTest {
     }
 
     @Test
-    void lsFile() throws ExternalFunctionRuntimeException, ParsingException, VariableNotInScopeException, IOException {
+    void lsFile() throws CliException, IOException {
         var lsResult = launcher.launch("ls Test/1.txt");
         assertEquals(List.of("1.txt"), lsResult);
     }

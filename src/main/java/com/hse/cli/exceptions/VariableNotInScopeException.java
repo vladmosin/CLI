@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Exception which is caused when variable do not exists in the environment
  * */
-public class VariableNotInScopeException extends Exception {
+public class VariableNotInScopeException extends CliException {
     @NotNull
     private String message;
     private Exception suppressedException;
