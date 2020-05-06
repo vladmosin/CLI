@@ -19,6 +19,9 @@ public class IdentityFunction extends BashFunction {
         this.value = value;
     }
 
+    /**
+     * Returns previous value if exists, otherwise return storing value
+     * */
     @Override
     public Value apply() throws VariableNotInScopeException, ExternalFunctionRuntimeException, IOException {
         if (hasPreviousResult()) {

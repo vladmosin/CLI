@@ -8,6 +8,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Stores environment for executing commands
+ * */
 public class Environment {
     private Map<String, String> variables = new HashMap<>();
 
@@ -18,6 +21,9 @@ public class Environment {
         }
     }
 
+    /**
+     * Adds new variable
+     * */
     public void addVariable(@NotNull VariableHolder variableHolder) {
         String name = variableHolder.getName();
         var expression = variableHolder.getExpression();
@@ -29,6 +35,9 @@ public class Environment {
         }
     }
 
+    /**
+     * Returns variable if exists, otherwise throws exception
+     * */
     public String getVariable(@NotNull String name) throws VariableNotInScopeException {
         if (variables.containsKey(name)) {
             return variables.get(name);
@@ -36,6 +45,4 @@ public class Environment {
             throw new VariableNotInScopeException("Variable with name \"" + name + "\" is not in scope", null);
         }
     }
-
-
 }

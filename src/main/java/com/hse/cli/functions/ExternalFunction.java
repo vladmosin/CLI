@@ -19,6 +19,9 @@ public class ExternalFunction extends BashFunction {
         this.parameters = parameters;
     }
 
+    /**
+     * Applies external function defined by name and parameters
+     * */
     public Value apply() throws IOException, ExternalFunctionRuntimeException {
         String osName = System.getProperty("os.name").toLowerCase();
         String command = concatCommand();

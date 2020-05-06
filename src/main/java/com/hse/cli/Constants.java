@@ -1,5 +1,9 @@
 package com.hse.cli;
 
+
+/**
+ * Stores different constants
+ * */
 public class Constants {
     public static final String CURRENT_DIRECTORY = "user.dir";
 

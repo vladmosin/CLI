@@ -8,7 +8,9 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ * Stores different auxiliary functions
+ * */
 public class Utils {
 
     /**

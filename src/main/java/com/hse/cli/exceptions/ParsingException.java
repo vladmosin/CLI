@@ -10,15 +10,24 @@ public class ParsingException extends Exception {
     private String message;
     private Exception suppressedException;
 
+    /**
+     * Creates exception
+     * */
     public ParsingException(@NotNull String message, Exception suppressedException) {
         this.message = message;
         this.suppressedException = suppressedException;
     }
 
+    /**
+     * Returns suppressed exception
+     * */
     public Exception getSuppressedException() {
         return suppressedException;
     }
 
+    /**
+     * Returns message
+     * */
     @NotNull
     public String getMessage() {
         return message;

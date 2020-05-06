@@ -31,10 +31,16 @@ public abstract class BashFunction {
      * */
     public abstract Value apply() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException;
 
+    /**
+     * Adds new parameter
+     * */
     public void addValue(BashFunction value) {
         parameters.add(value);
     }
 
+    /**
+     * Computes values of all parameters and returns result
+     * */
     public List<Value> getValues() throws VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
         var values = new ArrayList<Value>();
         for (var parameter : parameters) {
@@ -56,10 +62,16 @@ public abstract class BashFunction {
         return previous != null;
     }
 
+    /**
+     * Adds function which is previous in pipe
+     * */
     public void addPrevious(@NotNull BashFunction value) {
         previous = value;
     }
 
+    /**
+     * Creates one of descendant by given name
+     * */
     public static BashFunction create(@NotNull String name) throws ParsingException {
         switch (name) {
             case CAT:
@@ -77,6 +89,9 @@ public abstract class BashFunction {
         }
     }
 
+    /**
+     * Checks that this function is Exit function or one of previous in pipe
+     * */
     public boolean containsExitFunction() {
         if (this instanceof ExitFunction) {
             return true;

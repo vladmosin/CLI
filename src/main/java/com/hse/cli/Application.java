@@ -7,6 +7,10 @@ import com.hse.cli.exceptions.VariableNotInScopeException;
 import java.io.IOException;
 import java.util.Scanner;
 
+
+/**
+ * Main class. Reads users input and launches commands
+ * */
 public class Application {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
