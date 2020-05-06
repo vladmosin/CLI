@@ -24,7 +24,7 @@ public class Application {
                     break;
                 }
                 for (var answer : results) {
-                    System.err.println(answer);
+                    System.out.println(answer);
                 }
             } catch (Exception e) {
                 System.err.println(e.getMessage());

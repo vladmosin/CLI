@@ -2,6 +2,7 @@ package com.hse.cli.parser;
 
 import com.hse.cli.VariableHolder;
 import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
+import com.hse.cli.exceptions.InappropriateValueException;
 import com.hse.cli.exceptions.ParsingException;
 import com.hse.cli.exceptions.VariableNotInScopeException;
 import com.hse.cli.functions.*;
@@ -21,9 +22,13 @@ public class Parser {
 
     /** Parse line and return result in form of bash function */
     public static BashFunction parse(@NotNull String line, @NotNull Environment environment)
-            throws ParsingException, VariableNotInScopeException, IOException, ExternalFunctionRuntimeException {
+            throws ParsingException, VariableNotInScopeException, IOException,
+            ExternalFunctionRuntimeException, InappropriateValueException {
         BashFunction previousFunction = null;
         for (String pipePart : splitIntoPipes(line, '|')) {
+            if (pipePart.length() == 0) {
+                throw new InappropriateValueException("Cannot parse \"" + line + "\" because one of pipes is Empty", null);
+            }
             var bashFunction = parseString(pipePart, environment);
 
             if (bashFunction == null) {
@@ -44,7 +49,8 @@ public class Parser {
     }
 
     private static BashFunction parseBashFunction(@NotNull String line, @NotNull Environment environment)
-            throws ParsingException, IOException, VariableNotInScopeException, ExternalFunctionRuntimeException {
+            throws ParsingException, IOException, VariableNotInScopeException,
+            ExternalFunctionRuntimeException, InappropriateValueException {
         var tokens = splitIntoTokens(line, ' ');
         tokens = substituteVariables(tokens, environment);
         if (tokens.size() == 0) {
@@ -61,28 +67,6 @@ public class Parser {
 
                 return bashFunction;
             }
-        }
-    }
-
-    private static BashFunction parseVariableFunction(@NotNull String line, @NotNull Environment environment)
-            throws VariableNotInScopeException, ParsingException, ExternalFunctionRuntimeException, IOException {
-
-        var parts = splitIntoPipes(line, ' ');
-        if (parts.size() == 0 || parts.get(0).length() == 0 || parts.get(0).charAt(0) != '$') {
-            return null;
-        } else {
-            var builder = new StringBuilder();
-            builder.append(environment.getVariable(parts.get(0).substring(1).trim()));
-
-            for (int i = 1; i < parts.size(); i++) {
-                var part = parts.get(i);
-                if (part.trim().length() > 0) {
-                    builder.append(' ');
-                    builder.append(part.trim());
-                }
-            }
-
-            return parse(builder.toString(), environment);
         }
     }
 
@@ -134,7 +118,8 @@ public class Parser {
     }
 
     private static BashFunction parseStringByDefault(@NotNull String line, @NotNull Environment environment)
-            throws IOException, VariableNotInScopeException, ParsingException, ExternalFunctionRuntimeException {
+            throws IOException, VariableNotInScopeException, ParsingException,
+            ExternalFunctionRuntimeException, InappropriateValueException {
         if (Pattern.matches("^\"\\$\\([^']+\\)\"$", line)) {
             return parse(line.substring(3, line.length() - 2) , environment);
         } else {
