@@ -212,32 +212,8 @@ public class Parser {
         for (int i = 0; i < line.length(); i++) {
             char symbol = line.charAt(i);
             if (fragmentStarted) {
-                if (quota == '\'' && symbol == '\"') {
-                    throw new ParsingException("Cannot parse: " + line, null);
-                } else if (symbol == '\"') {
-                    if (quota == '\"') {
-                        tokens.add(line.substring(start, i + 1));
-                        fragmentStarted = false;
-                        quota = defaultDelimiter;
-                    } else {
-                        tokens.add(line.substring(start, i));
-                        fragmentStarted = true;
-                        start = i;
-                        quota = '\"';
-                    }
-                } else if (symbol == '\'') {
-                    if (quota == '\'') {
-                        tokens.add(line.substring(start, i + 1));
-                        fragmentStarted = false;
-                        quota = defaultDelimiter;
-                    } else {
-                        tokens.add(line.substring(start, i));
-                        fragmentStarted = true;
-                        start = i;
-                        quota = '\"';
-                    }
-                } else if (quota == defaultDelimiter && symbol == defaultDelimiter) {
-                    tokens.add(line.substring(start, i));
+                if (symbol == quota) {
+                    tokens.add(line.substring(start, i + 1).trim());
                     fragmentStarted = false;
                     quota = defaultDelimiter;
                 }
@@ -245,6 +221,7 @@ public class Parser {
                 if (symbol != defaultDelimiter) {
                     fragmentStarted = true;
                     start = i;
+
                 }
 
                 if (symbol == '\'' || symbol == '\"') {
@@ -294,7 +271,7 @@ public class Parser {
         if (Pattern.matches("^\"[^\"]+\"$", line)) {
             return new IdentityFunction(new StringValue(
                     substituteVariables(List.of(line.substring(1, line.length() - 1)), environment)));
-        } else if (Pattern.matches("^\'[^\"]+\'$", line)) {
+        } else if (Pattern.matches("^\'[^\']+\'$", line)) {
             return new IdentityFunction(new StringValue(List.of(line.substring(1, line.length() - 1))));
         } else {
             return null;
