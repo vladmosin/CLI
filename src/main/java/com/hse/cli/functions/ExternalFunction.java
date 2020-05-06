@@ -29,9 +29,15 @@ public class ExternalFunction extends BashFunction {
         var process = Runtime.getRuntime().exec(command);
         var result = new ArrayList<String>();
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+        try (var reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+             var errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))
+        ) {
             String line;
             while ((line = reader.readLine()) != null) {
+                result.add(line);
+            }
+
+            while ((line = errorReader.readLine()) != null) {
                 result.add(line);
             }
         } catch (Exception e) {
