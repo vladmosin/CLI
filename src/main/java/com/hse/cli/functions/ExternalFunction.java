@@ -19,13 +19,28 @@ public class ExternalFunction extends BashFunction {
         this.parameters = parameters;
     }
 
+    /**
+     * Applies external function defined by name and parameters
+     * */
     public Value apply() throws IOException, ExternalFunctionRuntimeException {
-        var process = Runtime.getRuntime().exec(concatCommand());
+        String osName = System.getProperty("os.name").toLowerCase();
+        String command = concatCommand();
+        if (osName.contains("win")) {
+            command = "cmd /c " + command;
+        }
+
+        var process = Runtime.getRuntime().exec(command);
         var result = new ArrayList<String>();
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+        try (var reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+             var errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))
+        ) {
             String line;
             while ((line = reader.readLine()) != null) {
+                result.add(line);
+            }
+
+            while ((line = errorReader.readLine()) != null) {
                 result.add(line);
             }
         } catch (Exception e) {
@@ -36,12 +51,12 @@ public class ExternalFunction extends BashFunction {
     }
 
     private String concatCommand() {
-        var builder = new StringBuilder("cmd.exe /c");
+        var builder = new StringBuilder();
         for (var parameter : parameters) {
             builder.append(' ');
             builder.append(parameter);
         }
 
-        return builder.toString();
+        return builder.toString().substring(1);
     }
 }

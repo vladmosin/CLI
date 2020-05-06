@@ -7,6 +7,10 @@ import com.hse.cli.exceptions.VariableNotInScopeException;
 import java.io.IOException;
 import java.util.Scanner;
 
+
+/**
+ * Main class. Reads users input and launches commands
+ * */
 public class Application {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -15,13 +19,15 @@ public class Application {
         while (true) {
             var command = in.nextLine();
             try {
-                for (var answer : launcher.launch(command)) {
+                var results = launcher.launch(command);
+                if (results == null) {
+                    break;
+                }
+                for (var answer : results) {
                     System.out.println(answer);
                 }
-            } catch (ParsingException | ExternalFunctionRuntimeException | VariableNotInScopeException e) {
-                System.out.println(e.getMessage());
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
         }
     }

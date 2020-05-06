@@ -15,11 +15,17 @@ public class VariableHolder {
         this.expression = expression;
     }
 
+    /**
+     * Returns variable name
+     * */
     @NotNull
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns expression storing in variable
+     * */
     @NotNull
     public String getExpression() {
         return expression;
