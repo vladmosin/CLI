@@ -1,6 +1,8 @@
 package com.hse.cli.functions;
 
 import com.hse.cli.exceptions.ExternalFunctionRuntimeException;
+import com.hse.cli.exceptions.InappropriateValueException;
+import com.hse.cli.exceptions.ParsingException;
 import com.hse.cli.exceptions.VariableNotInScopeException;
 import com.hse.cli.interpretator.Value;
 
@@ -18,7 +20,7 @@ public class ExitFunction extends BashFunction {
      * Calculates effects of previous function and interupts processing
      * */
     @Override
-    public Value apply() throws VariableNotInScopeException, ExternalFunctionRuntimeException, IOException {
+    public Value apply() throws VariableNotInScopeException, ExternalFunctionRuntimeException, IOException, ParsingException, InappropriateValueException {
         if (hasPreviousResult()) {
             getPreviousResult();
         }

@@ -1,5 +1,6 @@
 package com.hse.cli;
 
+import com.hse.cli.exceptions.InappropriateValueException;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -14,7 +15,11 @@ public class Utils {
     /**
      * Read file into list of strings
      * */
-    public static List<String> readFile(@NotNull String path) throws IOException {
-        return Files.lines(Paths.get(path)).collect(Collectors.toList());
+    public static List<String> readFile(@NotNull String path) throws IOException, InappropriateValueException {
+        try {
+            return Files.lines(Paths.get(path)).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new InappropriateValueException("cannot read file: \"" + path + "\"", null);
+        }
     }
 }

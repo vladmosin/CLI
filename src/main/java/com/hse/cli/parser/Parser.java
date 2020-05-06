@@ -63,13 +63,14 @@ public class Parser {
                 return new PwdFunction();
             case WC:
                 return new WcFunction();
+            case GREP:
+                return new GrepFunction();
             default:
                 return null;
         }
     }
 
-    private static BashFunction parseBashFunction(@NotNull String line, @NotNull Environment environment)
-            throws ParsingException, IOException, VariableNotInScopeException, ExternalFunctionRuntimeException {
+    private static BashFunction parseBashFunction(@NotNull String line, @NotNull Environment environment) throws ParsingException, IOException, VariableNotInScopeException, ExternalFunctionRuntimeException {
         var tokens = splitIntoTokens(line, ' ');
         if (tokens.size() == 0) {
             return null;
