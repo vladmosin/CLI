@@ -109,11 +109,12 @@ public class GrepFunction extends BashFunction {
 
             return infoHolder;
         } catch (Exception e) {
-            throw new ParsingException("cannot parse args", null);
+            throw new ParsingException(e.getMessage(), null);
         }
     }
 
-    private void setArgs(@NotNull CommandLine.ParseResult parseResult, @NotNull GrepInfoHolder infoHolder) {
+    private void setArgs(@NotNull CommandLine.ParseResult parseResult, @NotNull GrepInfoHolder infoHolder)
+            throws InappropriateValueException {
         if (parseResult.hasMatchedOption(CASE_INSENSITIVE)) {
             infoHolder.caseInsensitive = true;
         }
@@ -123,6 +124,9 @@ public class GrepFunction extends BashFunction {
         }
 
         infoHolder.linesAfterMatched = parseResult.matchedOptionValue(LINES_AFTER_MATCH, 0);
+        if (infoHolder.linesAfterMatched < 0) {
+            throw new InappropriateValueException("Lines after match in grep (-A flag) cannot be negative", null);
+        }
     }
 
     private String[] prepareArgs(@NotNull GrepInfoHolder infoHolder) throws IOException,
