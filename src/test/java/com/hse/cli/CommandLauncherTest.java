@@ -255,10 +255,4 @@ class CommandLauncherTest {
         result = launcher.launch("echo \"'$x'\"");
         assertTrue(listEquals(result, List.of("'1'")));
     }
-
-    @Test
-    void errorsPrinted() throws ExternalFunctionRuntimeException, InappropriateValueException, ParsingException, VariableNotInScopeException, IOException {
-        var result = launcher.launch("some command");
-        assertFalse(result.isEmpty());
-    }
 }
