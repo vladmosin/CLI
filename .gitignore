@@ -4,3 +4,8 @@
 *.bin
 *.lock
 *.xml
+*.xml
+*.bin
+.gradle/vcs-1/gc.properties
+.gradle/4.10/gc.properties
+*.iml
